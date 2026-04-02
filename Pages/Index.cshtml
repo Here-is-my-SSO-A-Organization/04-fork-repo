@@ -1,0 +1,62 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@* <ms_docref_add_api_result_display> *@
+<p>Before rendering the page, the Page Model was able to make a call to Microsoft Graph's <code>/me</code> API for your user and received the following:</p>
+
+<p><pre><code class="language-js">@ViewData["ApiResult"]</code></pre></p>
+
+<p>Refreshing this page will continue to use the cached access token acquired for Microsoft Graph, which is valid for future page views will attempt to refresh this token as it nears its expiration.</p>
+@* </ms_docref_add_api_result_display> *@
+
+<hr />
+
+<div class="mt-4">
+    <h3>SQL Managed Instance Connection Test</h3>
+
+    @if (ViewData["SqlMIStatus"] as string == "Success")
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>✅ Connection Successful</strong>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th style="width:200px">Status</th>
+                    <td><span class="badge bg-success">Connected</span></td>
+                </tr>
+                <tr>
+                    <th>Database</th>
+                    <td>@ViewData["SqlMIDatabase"]</td>
+                </tr>
+                <tr>
+                    <th>Server Time</th>
+                    <td>@ViewData["SqlMIServerTime"]</td>
+                </tr>
+                <tr>
+                    <th>Latency</th>
+                    <td>@ViewData["SqlMILatency"]</td>
+                </tr>
+                <tr>
+                    <th>SQL Version</th>
+                    <td><small>@ViewData["SqlMIVersion"]</small></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>❌ Connection Failed</strong>
+        </div>
+        <p><code>@ViewData["SqlMIMessage"]</code></p>
+    }
+</div>
